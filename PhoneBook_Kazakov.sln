@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook_Kazakov", "PhoneB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassModule", "ClassModule\ClassModule.csproj", "{8E17E937-0D9C-45F6-BADE-F1CFA9D01C32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassConnection", "ClassConnection\ClassConnection.csproj", "{D1F2589C-07F3-43AC-836F-1108A62551AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8E17E937-0D9C-45F6-BADE-F1CFA9D01C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E17E937-0D9C-45F6-BADE-F1CFA9D01C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E17E937-0D9C-45F6-BADE-F1CFA9D01C32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1F2589C-07F3-43AC-836F-1108A62551AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1F2589C-07F3-43AC-836F-1108A62551AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1F2589C-07F3-43AC-836F-1108A62551AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1F2589C-07F3-43AC-836F-1108A62551AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
