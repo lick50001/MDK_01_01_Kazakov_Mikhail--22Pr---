@@ -24,5 +24,15 @@ namespace PhoneBook_Kazakov.Pages
         {
             InitializeComponent();
         }
+
+        private void Click_Phone(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void Click_History(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
