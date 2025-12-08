@@ -74,6 +74,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\PagesUser\Call_win.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PagesUser\User_win.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -86,6 +90,9 @@
   <ItemGroup>
     <Compile Include="Pages\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PagesUser\Call_win.xaml.cs">
+      <DependentUpon>Call_win.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PagesUser\User_win.xaml.cs">
       <DependentUpon>User_win.xaml</DependentUpon>
