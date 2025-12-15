@@ -13,7 +13,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ClassModule;
 using ClassConnection;
 
 namespace PhoneBook_Kazakov.Elements
@@ -24,7 +23,7 @@ namespace PhoneBook_Kazakov.Elements
     public partial class User_itm : UserControl
     {
         User user_loc;
-        public User_itm(User _user)
+        public User_itm(ClassConnection.User _user)
         {
             InitializeComponent();
             user_loc = _user;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using ClassModule;
 using ClassConnection;
 using System.Linq;
 
@@ -14,7 +13,7 @@ namespace PhoneBook_Kazakov.Pages.PagesUser
     {
         User user_loc;
 
-        public User_win(User _user)
+        public User_win(ClassConnection.User _user)
         {
             InitializeComponent();
             user_loc = _user;

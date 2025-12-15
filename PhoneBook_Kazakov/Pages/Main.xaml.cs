@@ -16,10 +16,6 @@ using System.Windows.Shapes;
 using System.Xml.Linq;
 using PhoneBook_Kazakov.Elements;
 
-// Псевдонимы для разрешения конфликта имен
-using ModuleUser = ClassModule.User;
-using ModuleCall = ClassModule.Call;
-
 namespace PhoneBook_Kazakov.Pages
 {
     public partial class Main : Page
@@ -77,21 +73,15 @@ namespace PhoneBook_Kazakov.Pages
                             if (PageSelect == PageMain.Users)
                             {
                                 // Приводим к правильному типу
-                                var moduleUser = new ModuleUser
-                                {
-                                    Id = user_itm.Id,
-                                    PhoneNum = user_itm.PhoneNum,
-                                    FioUser = user_itm.FioUser,
-                                    PassportData = user_itm.PassportData
-                                };
-                                parrent.Children.Add(new User_itm(moduleUser));
+                                var userForControl = user_itm;
+                                parrent.Children.Add(new User_itm(user_itm));
                                 await Task.Delay(90);
                             }
                         }
 
                         if (PageSelect == PageMain.Users)
                         {
-                            var ff = new Pages.PagesUser.User_win(new ModuleUser());
+                            var ff = new Pages.PagesUser.User_win(new ClassConnection.User());
                             parrent.Children.Add(new Add_itm(ff));
                         }
                     };
@@ -143,7 +133,7 @@ namespace PhoneBook_Kazakov.Pages
 
                         if (PageSelect == PageMain.Calls)
                         {
-                            var moduleCall = new ModuleCall();
+                            var moduleCall = new ClassConnection.Call();
                             var ff = new Pages.PagesUser.Call_win(moduleCall);
                             parrent.Children.Add(new Add_itm(ff));
                         }

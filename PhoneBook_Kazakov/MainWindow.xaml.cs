@@ -29,8 +29,8 @@ namespace PhoneBook_Kazakov
             InitializeComponent();
             connect = new Connection();
 
-            connect.LoadData(Connection.tabels.users);
-            connect.LoadData(Connection.tabels.calls);
+            connect.LoadData(Connection.Tabels.Users);
+            connect.LoadData(Connection.Tabels.Calls);
 
             main = new Pages.Main();
 
