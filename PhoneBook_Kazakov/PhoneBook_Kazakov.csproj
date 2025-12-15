@@ -159,6 +159,10 @@
     <Resource Include="Img\logo.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClassConnection\ClassConnection.csproj">
+      <Project>{D1F2589C-07F3-43AC-836F-1108A62551AD}</Project>
+      <Name>ClassConnection</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClassModule\ClassModule.csproj">
       <Project>{8E17E937-0D9C-45F6-BADE-F1CFA9D01C32}</Project>
       <Name>ClassModule</Name>
