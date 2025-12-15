@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -75,10 +76,123 @@ namespace PhoneBook_Kazakov.Pages.PagesUser
                 MessageBox.Show("Время конца неправильно");
                 return;
             }
-            if (dat)
+            if (date_start_call.SelectedDate != null)
             {
+                System.DateTime dateStart = (System.DateTime)date_start_call.SelectedDate;
+                System.DateTime dateFinish = (System.DateTime)date_end_call.SelectedDate;
+                System.DateTime dateEnd = dateFinish.Subtract(dateStart);
+                if (!dateEnd.ToString().Contains("-"))
+                {
+                    User id_temp_user;
+                    if (user_select.SelectedItem != null)
+                        id_temp_user = MainWindow.connect.users.Find(x => x.id == Convert.ToInt32(((ComboBox)user_select.SelectedItem).Tag));
+                    else
+                    {
+                        MessageBox.Show("Запрос не был обработан. Вы не указали пользователя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
 
+                    int id_calls_categ;
+                    if (call_category_text.SelectedItem != null)
+                        id_calls_categ = Convert.ToInt32(((ComboBoxItem)call_category_text.SelectedItem).Tag);
+                    else
+                    {
+                        MessageBox.Show("Запрос не был обработан. Вы не указали категории звонка", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                
+
+                    if (call_itm.time_end == null)
+                    {
+                        int id = MainWindow.connect.SetId(ClassConnection.Connection.tabels.calls);
+
+                        string query = $"INSERT INTO [calls] ([Код], [user_id], [category_call], [date], [time_start], [time_end]) VALUES ({id.ToString()}, " +
+                            $"'{id_temp_user.id.ToString()}', '{id_calls_categ.ToString()}', '{date_start_call.SelectedDate.Value.ToString().Split(' ')[0]}', " +
+                            $"'{date_start_call.SelectedDate.Value.ToString().Split(' ')[0]} {time_start.Text}', " +
+                            $"'{date_end_call.SelectedDate.Value.ToString().Split(' ')[0]} {time_finish.Text}')";
+
+                        var pc = MainWindow.connect.QueryAccess(query);
+                        if (pc != null)
+                        {
+                            MainWindow.connect.LoadData(ClassConnection.Connection.tabels.calls);
+                            //Mainwindow.warningBox.Show_warn("Успешно", "Успешное изменение оборудования", "pack://application,,,/img/good_write.png");
+                            MessageBox.Show("Успешное добавление звонка", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.calls);
+                        }
+                        else MessageBox.Show("Запрос на добавление звонка не был обработан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    else
+                    {
+                        string query = $"UPDATE [calls] SET [user_id] = '{id_temp_user.id.ToString()}', " +
+                            $"[category_call]='{id_calls_categ.ToString()}', " +
+                            $"[date]='{date_start_call.SelectedDate.Value.ToString().Split(' ')[0]}', " +
+                            $"[time_start]='{date_start_call.SelectedDate.Value.ToString().Split(' ')[0]} {time_start.Text}', " +
+                            $"[time_end]='{date_end_call.SelectedDate.Value.ToString().Split(' ')[0]} {time_finish.Text}' WHERE Kod = {call_itm.id}";
+
+                        var pc = MainWindow.connect.QueryAccess(query);
+                        if (pc != null)
+                        {
+                            MainWindow.connect.LoadData(ClassConnection.Connection.tabels.calls);
+                            //Mainwindow.warningBox.Show_warn("Успешно", "Успешное изменение оборудования", "pack://application,,,/img/good_write.png");
+                            MessageBox.Show("Успешное изменение звонка", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.calls);
+                        }
+                        else MessageBox.Show("Запрос на изменение звонка не был обработан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+                else MessageBox.Show("Дата старта больше чем дата конца");
             }
+        else MessageBox.Show("Вы не указали дату");    
+        }
+
+        private void Click_Cancel_Call_Redact(object sender, RoutedEventArgs e)
+        {
+            // отмена действий и переход на главное окно
+            MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main);
+        }
+
+        private void Click_Remove_Call_Redact(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainWindow.connect.LoadData(ClassConnection.Connection.tabels.calls);
+
+                string vs = "DELETE FROM [calls] WHERE [Koд] = " + call_itm.id.ToString() + "";
+                var pc = MainWindow.connect.QueryAccess(vs);
+                if (pc != null)
+                {
+                    MessageBox.Show("Успешное удаление звонка", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MainWindow.connect.LoadData(ClassConnection.Connection.tabels.calls);
+                    MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.calls);
+                }
+                else MessageBox.Show("Запрос на удаление звонка не был обработан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        public bool CheckTime(string str)
+        {
+            string[] str1 = str.Split(':');
+            if (str1.Length == 2)
+            {
+                if (str1[0].Trim() != "" && str1[1].Trim() != "")
+                {
+                    if (int.Parse(str1[0]) >= 0 && int.Parse(str1[0]) <= 23)
+                    {
+                        if (int.Parse(str1[1]) >= 0 && int.Parse(str1[1]) <= 59)
+                        {
+                            return true;
+                        }
+                        else return false;
+                    }
+                    else return false;
+                }
+                else return false;
+            }
+            else return false;
         }
     }
 }
